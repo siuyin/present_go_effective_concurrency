@@ -103,20 +103,25 @@ Calling cancel() will close channel toCtx.Done in main and all goroutines this c
 
 * How context is used in workA goroutine
 
-ctx.Done() is closed when deadline is passed.
-A read from a closed channel will immediately return the channel's zero value.
-
 .code cmd/ct1/main.go /10/,/20/
 
-Experiment with different timeout values. Run on previous slide.
+Too much code ...
+
+* Inner goroutine
+
+ctx.Done() is closed when deadline is passed.
+A read from a closed channel will immediately return the channel's zero value.
+.code cmd/ct1/main.go /12/,/13/
+
+Experiment with different timeout values. Run 2 slides back.
 
 * Explicit cancellation
 
-Scenario: You manage a department. Your boss has assigned you a time-critical task. Must be done ASAP!
+*Scenario*: You manage a department. Your boss has assigned you a time-critical task. Must be done ASAP!
 You have two workers. The task cannot be split up.
 What could you do?
 
-Possible solution: Assign both workers the same task.
+Possible *solution*: Assign both workers the same task.
 Accept the earlier finisher.
 Must remember to let the late finisher know so that he can stop working!
 
@@ -130,11 +135,11 @@ Must remember to let the late finisher know so that he can stop working!
 I read the go docs many times, but ...
 
 Scenario: You maintain an e-commerce application. As part of the shopping workflow, the code retrieves:
-- a price, given a product id
-- nearest store address, given a postcode/zipcode
+- a *price*, given a product id
+- nearest store *address*, given a postcode/zipcode
 
 The above requests are written to the application log.
-These log entries would be a lot more useful if they also log the requester user id.
+These log entries would be a lot more useful if they also log the requester *user*id*.
 This user id is "request scoped data".
 
 * Main code

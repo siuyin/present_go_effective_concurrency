@@ -10,6 +10,7 @@ import (
 func workA(ctx context.Context) <-chan string {
 	ch := make(chan string)
 	go func() {
+		// 12 OMIT
 		ch2 := make(chan string)
 		go func() {
 			fmt.Printf("in workA: current time: %v\n", time.Now().Format("04:05.000"))
@@ -25,6 +26,7 @@ func workA(ctx context.Context) <-chan string {
 			ch <- r
 			fmt.Printf("workA sent off results!\n")
 		}
+		// 13 OMIT
 	}()
 	return ch
 }
