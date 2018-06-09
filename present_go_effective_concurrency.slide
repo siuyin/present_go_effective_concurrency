@@ -119,13 +119,13 @@ Experiment with different timeout values. Run 2 slides back.
 
 * Explicit cancellation
 
-*Scenario*: You manage a department. Your boss has assigned you a time-critical task. Must be done ASAP!
+*Scenario*: You manage a department. Your boss has assigned you a time-critical task. It must be done ASAP!
 You have two workers. The task cannot be split up.
 What could you do?
 
 Possible *solution*: Assign both workers the same task.
 Accept the earlier finisher.
-Must remember to let the late finisher know so that he can stop working!
+You must remember to let the late finisher know so that he can stop working!
 
 * Worker code
 .code cmd/ct2/main.go /10/,/20/
