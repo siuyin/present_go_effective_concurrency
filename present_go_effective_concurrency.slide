@@ -33,6 +33,8 @@ Time taken: 10T + 99T = 109T
 Sample *solution*2*: Make 10 copies, ask 10 workers to make 9 copies each, have 100 workers make 9 copies each.
 Time taken: 10T + 9T + 9T = 28T
 
+1 sequential and 2 *concurrent* designs. Timings assume *parallel* execution.
+
 * Step 2: Remember I/O is expensive and goroutines are cheap
 
 Question: Which are good candidates for using concurrency in your code?
