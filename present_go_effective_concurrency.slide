@@ -156,3 +156,7 @@ key := userIDKey{}
 
 Try changing the userID.
 (Run 2 slides back)
+
+* Code available at
+
+.link https://github.com/siuyin/present_go_effective_concurrency
