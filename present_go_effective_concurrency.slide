@@ -133,6 +133,9 @@ You must remember to let the late finisher know so that he can stop working!
 * Main code
 .play -edit cmd/ct2/main.go /20/,/30/
 
+"A CancelFunc tells an operation to abandon its work. A CancelFunc does not wait for the work to stop. After the first call, subsequent calls to a CancelFunc do nothing."
+(GoDoc)
+
 * "Request scoped data"
 I read the go docs many times, but ...
 
