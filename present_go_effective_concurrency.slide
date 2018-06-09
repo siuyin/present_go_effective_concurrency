@@ -1,0 +1,110 @@
+Effective Concurrency
+with Go
+9 Jun 2018
+
+Loh Siu Yin
+Technology Consultant, Beyond Broadcast LLP
+siuyin@beyondbroadcast.com
+
+* Why Concurrent Design?
+
+* Where is concurrency appropriate?
+.image img/workflow.jpg
+
+* Concurrency plus communication
+Concurrency is a way to structure a program by breaking it into pieces that can be executed independently.
+
+Communication is the means to coordinate the independent executions.
+
+(Rob Pike)
+
+* Getting started with concurrent design
+
+Step 1: Think like a human
+
+Scenarios: You are given a task to make 1000 copies of a document. How would you handle this job?
+
+*Horrible*solution*: Make 1000 copies on your own.
+Time taken: 1000T
+
+Sample *solution*1*: First make 10 copies, then ask 10 workers to make 99 copies each.
+Time taken: 10T + 99T = 109T
+
+Sample *solution*2*: Make 10 copies, ask 10 workers to make 9 copies each, have 100 workers make 9 copies each.
+Time taken: 10T + 9T + 9T = 28T
+
+* Step 2: Remember I/O is expensive and goroutines are cheap
+
+Question: Which are good candidates for using concurrency in your code?
+
+A. Sum 1000 numbers
+
+B. Make 1000 REST API calls
+
+Discuss
+
+* Step 3: Communicate well (applies both to humans and machines)
+
+- Where do you get your input from?
+- Where do you send your output to?
+- Who do you tell when you finish, or when you have an error/problem?
+- Are there time limits?
+- How are job cancellations communicated? 
+
+* Code examples
+
+* Minimise Costly function/API calls
+Initial design -- sequential code:
+.play -edit cmd/seq1/main.go /10/,/20/
+
+* Use goroutines
+.play -edit cmd/gr1/main.go /10/,/20/
+
+This works but it is not a good design. Why?
+
+Poor communication: Cancellation, Timeouts, Error notification ?
+
+* Error notification and handling
+What will happen when the code below is run?
+.play -edit cmd/er1/main.go /10/,/20/
+
+* How about closing the channel?
+Closing the channel means "no more values to come".
+
+.code cmd/er2/main.go /10/,/15/
+
+* Closing the channel ...
+Reads from the channel will immediately return with the channel's zero value.
+
+.play -edit cmd/er2/main.go /15/,/20/
+
+* Let's introduce a channel to tell main a goroutine is finished
+
+.code cmd/er3/main.go /15/,/20/
+
+* Worker code
+.play -edit cmd/er3/main.go /10/,/15/
+
+Communication is better now that we have a feedback "done" channel.
+A worker uses this channel to signal that he has finished working.
+
+How about respecting time limits or timeouts?
+
+* Context package
+The go standard library has a context package that will address
+timeout needs, cancellation as well as "request scoped data".
+
+.play -edit cmd/ct1/main.go /20/,/30/
+
+Calling cancel() will close channel toCtx.Done in main and all goroutines this context was passed to.
+
+* How context is used in workA goroutine
+
+ctx.Done() is closed when deadline is passed.
+A read from a closed channel will immediately return the channel's zero value.
+
+.code cmd/ct1/main.go /10/,/20/
+
+Experiment with different timeout values. Run on previous slide.
+
+
