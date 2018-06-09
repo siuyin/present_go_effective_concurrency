@@ -78,6 +78,8 @@ Reads from the channel will immediately return with the channel's zero value.
 
 .play -edit cmd/er2/main.go /15/,/20/
 
+Not good ...
+
 * Let's introduce a channel to tell main a goroutine is finished
 
 .play -edit cmd/er3/main.go /15/,/20/

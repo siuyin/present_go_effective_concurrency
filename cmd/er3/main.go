@@ -41,6 +41,7 @@ main: // HL
 			}
 		}
 	}
+	time.Sleep(100 * time.Millisecond)
 }
 
 // 20 OMIT
