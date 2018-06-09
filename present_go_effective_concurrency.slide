@@ -37,7 +37,7 @@ Time taken: 10T + 9T + 9T = 28T
 
 * Step 2: Remember I/O is expensive and goroutines are cheap
 
-Question: Which are good candidates for using concurrency in your code?
+Question: Which is/are good candidates for using concurrency in your code?
 
 A. Sum 1000 numbers
 
