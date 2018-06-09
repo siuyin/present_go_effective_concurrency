@@ -10,7 +10,7 @@ import (
 func worker(i int, ch chan<- int, done chan<- bool) { // HL
 	go func(inp int) {
 		if inp < 0 {
-			log.Println("can't handle negative numbers!")
+			log.Printf("can't handle negative numbers:%v", inp)
 			done <- true // I give up! I'm done! // HL
 			return
 		}

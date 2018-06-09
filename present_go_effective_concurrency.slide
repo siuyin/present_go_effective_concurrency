@@ -22,7 +22,7 @@ Communication is the means to coordinate the independent executions.
 
 Step 1: Think like a human
 
-Scenarios: You are given a task to make 1000 copies of a document. How would you handle this job?
+Scenario: You are given a task to make 1000 copies of a document. How would you handle this job?
 
 *Horrible*solution*: Make 1000 copies on your own.
 Time taken: 1000T
@@ -80,13 +80,14 @@ Reads from the channel will immediately return with the channel's zero value.
 
 * Let's introduce a channel to tell main a goroutine is finished
 
-.code cmd/er3/main.go /15/,/20/
+.play -edit cmd/er3/main.go /15/,/20/
 
 * Worker code
-.play -edit cmd/er3/main.go /10/,/15/
+.code cmd/er3/main.go /10/,/15/
 
 Communication is better now that we have a feedback "done" channel.
 A worker uses this channel to signal that he has finished working.
+(Run code on previous slide)
 
 How about respecting time limits or timeouts?
 
@@ -107,4 +108,51 @@ A read from a closed channel will immediately return the channel's zero value.
 
 Experiment with different timeout values. Run on previous slide.
 
+* Explicit cancellation
 
+Scenario: You manage a department. Your boss has assigned you a time-critical task. Must be done ASAP!
+You have two workers. The task cannot be split up.
+What could you do?
+
+Possible solution: Assign both workers the same task.
+Accept the earlier finisher.
+Must remember to let the late finisher know so that he can stop working!
+
+* Worker code
+.code cmd/ct2/main.go /10/,/20/
+
+* Main code
+.play -edit cmd/ct2/main.go /20/,/30/
+
+* "Request scoped data"
+I read the go docs many times, but ...
+
+Scenario: You maintain an e-commerce application. As part of the shopping workflow, the code retrieves:
+- a price, given a product id
+- nearest store address, given a postcode/zipcode
+
+The above requests are written to the application log.
+These log entries would be a lot more useful if they also log the requester user id.
+This user id is "request scoped data".
+
+* Main code
+.play -edit cmd/ct3/main.go /20/,/25/
+
+type MyStruct struct {
+S string
+}
+
+aStruct := MyStruct{}
+aStruct.S = "brown fox"
+
+similarly
+key := userIDKey{}
+
+* Main code ...
+.code cmd/ct3/main.go /25/,/30/
+
+* Goroutines
+.play cmd/ct3/main.go /10/,/20/
+
+Try changing the userID.
+(Run 2 slides back)
