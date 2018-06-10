@@ -193,6 +193,15 @@ key := userIDKey{}
 Try changing the userID.
 (Run 2 slides back)
 
+* Why the strange type for context key?
+A key identifies a specific value in a Context. Functions that wish
+to store values in Context typically allocate a key in a global
+variable then use that key as the argument to context.WithValue and
+Context.Value. A key can be any type that supports equality;
+packages should define keys as an unexported type to avoid
+collisions.
+
+(go doc; context package)
 
 * In human terms
 
