@@ -169,6 +169,82 @@ key := userIDKey{}
 Try changing the userID.
 (Run 2 slides back)
 
+
+* In human terms
+
+* Immutability
+
+- See; No touch
+
+I can only (successfully) make 1000 copies of the document if you stop revising it!
+
+If the document is stable, I can assign many people to the task and get it done faster!
+
+* CQRS: Command Query Responsibility Segregation
+
+- Don't move the goal posts (while the game is in play)
+
+Maintenance work like moving the goal posts or changing the field layout (mutating commands) should only be done when we are not having a game on the field!
+
+How can my team read the situation properly (query/read-only operations) if the goal posts keep shifting?
+
+- In computer terms
+
+Commands must be executed sequentially.
+
+Querys can be run concurrenlty.
+
+* Event Log driven architecture and Functional Programming
+
+- Don't rewrite history!
+
+In an idealized world, given enough care*, the result of every action can always be reproduced.
+
+But only if history is not re-written. If you rewrite history all guarantees of repoducibility are off!
+
+---
+
+*Note: Quantum theory disagrees. Fortunately it only applies at the very small scale. Normal "big" things are deterministic.
+
+
+* Actor Model / CSP (Communicating Sequential Processes)
+
+- Make best use of your team!
+
+Being a good manager is being able to:
+
+- break down a huge, abstract task
+
+- assign specific, measurable, achievable, relevant (to business goals) and timely sub-tasks to each team member
+
+- maintain good and fluid communication within the team to achieve proper coordination of work
+
+---
+
+Concurrency is a way to structure a program by breaking it into pieces that can be executed independently.
+
+Communication is the means to coordinate the independent executions.
+
+(Rob Pike)
+
+* Don't communicate by sharing memory, share memory by communicating
+
+Scenario: A group having a discussion at a whiteboard.
+
+- Pass the pen / whiteboard marker
+
+Old way: Each member has a pen, access to the whiteboard is on a fist-come-first-served basis.
+
+New way: The team member passes on the pen to the next team member so that he/she can access the board.
+
+* Concurrency Design Principles
+- Think like a human -- be a good manager
+- I/O is expensive, CPU cheaper, goroutines are cheap
+- Communicate well -- handle cancellations, timeouts, error notifications, use well-defined, open communication channels
+
+* Where is concurrency appropriate?
+.image img/workflow.jpg
+
 * Code available at
 
 .link https://github.com/siuyin/present_go_effective_concurrency
