@@ -264,7 +264,7 @@ New way: The team member passes on the pen to the next team member so that he/sh
 * Concurrency Design Principles
 - Think like a human -- be a good manager
 - I/O is expensive, CPU cheaper, goroutines are cheap
-- Communicate well -- handle cancellations, timeouts, error notifications, use well-defined, open communication channels
+- Communicate well -- handle cancellations, timeouts, error notifications, use well-defined, synchronous or asynchronous (buffered) communication channels
 
 * Where is concurrency appropriate?
 .image img/workflow.jpg
