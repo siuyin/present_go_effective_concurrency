@@ -73,7 +73,10 @@ What will happen when the code below is run?
 * How about closing the channel?
 Closing the channel means "no more values to come".
 
-.code cmd/er2/main.go /10/,/15/
+I won't run this yet ...
+
+.play -edit cmd/er2/main.go /10/,/15/
+
 
 * Closing the channel ...
 Reads from the channel will immediately return with the channel's zero value.
@@ -81,6 +84,7 @@ Reads from the channel will immediately return with the channel's zero value.
 .play -edit cmd/er2/main.go /15/,/20/
 
 Not good ...
+Fix and run on previous slide.
 
 * Let's introduce a channel to tell main a goroutine is finished
 
@@ -91,9 +95,23 @@ Not good ...
 
 Communication is better now that we have a feedback "done" channel.
 A worker uses this channel to signal that he has finished working.
-(Run code on previous slide)
 
-How about respecting time limits or timeouts?
+Run on previous slide. 
+Did we have a data race condition?
+
+* Buffered Channels and Select
+
+- Buffered Channels do not block, as long as they have sufficient capacity.
+goroutines can push into buffered channels at full speed, so long as a "pigeon hole" is open.
+
+- If *rCh* and *done* are both buffered channels below, both will be ready to communicate.
+Select will randomly choose one to proceed. What can happen it chooses *done* more of the time?
+
+
+.code cmd/er3/main.go /SS/,/SE/
+
+
+* How about respecting time limits or timeouts?
 
 * Context package
 The go standard library has a context package that will address

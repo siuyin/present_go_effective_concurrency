@@ -24,14 +24,15 @@ func worker(i int, ch chan<- int, done chan<- bool) { // HL
 func main() {
 	dat := []int{1, 2, -2, 3}
 	done := make(chan bool) // HL
-	rCh := make(chan int, len(dat))
+	rCh := make(chan int)   // 1. Buffered channel?
 	for _, v := range dat {
 		worker(v, rCh, done) // HL
 	}
 	reportedIn := 0
 main: // HL
 	for { // loop forever until told to break
-		select { // HL
+		// SS OMIT
+		select { //2. Both channels ready? // HL
 		case result := <-rCh:
 			fmt.Println(result)
 		case <-done:
@@ -40,6 +41,7 @@ main: // HL
 				break main // HL
 			}
 		}
+		// SE OMIT
 	}
 	time.Sleep(100 * time.Millisecond)
 }

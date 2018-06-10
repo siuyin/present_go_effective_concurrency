@@ -11,6 +11,7 @@ func worker(i int, ch chan<- int) {
 	go func(inp int) {
 		if inp < 0 { // HL
 			log.Printf("can't handle negative numbers: %v", inp)
+			// 2. FIXME: ch <- 999999
 			return
 		}
 		time.Sleep(1 * time.Second)
@@ -23,7 +24,7 @@ func main() {
 	for _, v := range dat {
 		worker(v, rCh)
 	}
-	for i := 0; i < len(dat); i++ {
+	for i := 0; i < len(dat); i++ { // 1. expect all pigeon holes have results
 		fmt.Println(<-rCh)
 	}
 	time.Sleep(100 * time.Millisecond)

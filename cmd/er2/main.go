@@ -11,6 +11,7 @@ func worker(i int, ch chan<- int) {
 	go func(inp int) {
 		if inp < 0 {
 			log.Println("can't handle negative numbers!")
+			// 2. FIXME: time.Sleep(2 * time.Second)
 			close(ch) // HL
 			return
 		}
@@ -27,7 +28,7 @@ func main() {
 		worker(v, rCh)
 	}
 	for i := 0; i < len(dat); i++ {
-		fmt.Println(<-rCh) // closed channel will not block! // HL
+		fmt.Println(<-rCh) // 1. closed channel will not block! // HL
 	}
 }
 
