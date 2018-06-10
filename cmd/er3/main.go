@@ -15,8 +15,10 @@ func worker(i int, ch chan<- int, done chan<- bool) { // HL
 			return
 		}
 		time.Sleep(1 * time.Second)
+		//RS OMIT
 		ch <- inp * 2
 		done <- true // Finished working. I'm done! // HL
+		//RE OMIT
 	}(i)
 }
 

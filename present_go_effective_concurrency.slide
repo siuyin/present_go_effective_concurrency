@@ -110,6 +110,12 @@ Select will randomly choose one to proceed. What can happen it chooses *done* mo
 
 .code cmd/er3/main.go /SS/,/SE/
 
+* 'Regular' channels avoid Select data races
+ch := make(chan int)
+is just a "hole" in the wall. To pass something through successfully, someone must be on the other side to receive. Otherwise you have to wait. 
+
+.code cmd/er3/main.go /RS/,/RE/
+.code cmd/er3/main.go /SS/,/SE/
 
 * How about respecting time limits or timeouts?
 
